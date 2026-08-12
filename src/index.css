@@ -1,0 +1,321 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --gold-accent: #c5a059;
+    --dark-bg: #080808;
+    --dark-surface: #121212;
+    --dark-card: #1a1a1a;
+    --text-primary: #e5e5e5;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+  }
+
+  body {
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0d0d;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-accent);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #dfb66c;
+}
+
+/* Hide scrollbar for clean carousel tracks */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ----------------------------------------------------
+   CSS 3D Perspective Stage Engine
+   ---------------------------------------------------- */
+.css-3d-stage {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.css-3d-card {
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.5s ease,
+              filter 0.5s ease,
+              box-shadow 0.6s ease;
+  will-change: transform, opacity;
+}
+
+/* CSS Parallax Hover Effects */
+.css-parallax-hover {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+}
+.css-parallax-hover:hover {
+  transform: translateY(-8px) scale(1.025) rotateX(2deg) rotateY(-1deg);
+  box-shadow: 0 25px 45px -12px rgba(197, 160, 89, 0.25);
+}
+
+.css-parallax-hover:hover .css-zoom-img {
+  transform: scale(1.08);
+}
+
+.css-zoom-img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ----------------------------------------------------
+   Pure CSS Radio-Button Carousel Engine
+   ---------------------------------------------------- */
+.css-radio-engine input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Radio active states mapped using sibling CSS selectors */
+#radio-slide-0:checked ~ .css-radio-track .radio-card-0 {
+  transform: translate3d(0, 0, 90px) scale(1.06);
+  z-index: 40;
+  opacity: 1;
+  filter: drop-shadow(0 20px 30px rgba(197, 160, 89, 0.25));
+}
+#radio-slide-0:checked ~ .css-radio-track .radio-card-1 {
+  transform: translate3d(78%, 0, -160px) rotateY(-28deg) scale(0.85);
+  z-index: 20;
+  opacity: 0.65;
+  filter: brightness(0.85);
+}
+#radio-slide-0:checked ~ .css-radio-track .radio-card-2 {
+  transform: translate3d(145%, 0, -320px) rotateY(-38deg) scale(0.68);
+  z-index: 10;
+  opacity: 0.3;
+  filter: brightness(0.6);
+}
+#radio-slide-0:checked ~ .css-radio-track .radio-card-3,
+#radio-slide-0:checked ~ .css-radio-track .radio-card-4 {
+  transform: translate3d(190%, 0, -450px) rotateY(-45deg) scale(0.5);
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Slide 1 active */
+#radio-slide-1:checked ~ .css-radio-track .radio-card-0 {
+  transform: translate3d(-78%, 0, -160px) rotateY(28deg) scale(0.85);
+  z-index: 20;
+  opacity: 0.65;
+  filter: brightness(0.85);
+}
+#radio-slide-1:checked ~ .css-radio-track .radio-card-1 {
+  transform: translate3d(0, 0, 90px) scale(1.06);
+  z-index: 40;
+  opacity: 1;
+  filter: drop-shadow(0 20px 30px rgba(197, 160, 89, 0.25));
+}
+#radio-slide-1:checked ~ .css-radio-track .radio-card-2 {
+  transform: translate3d(78%, 0, -160px) rotateY(-28deg) scale(0.85);
+  z-index: 20;
+  opacity: 0.65;
+  filter: brightness(0.85);
+}
+#radio-slide-1:checked ~ .css-radio-track .radio-card-3 {
+  transform: translate3d(145%, 0, -320px) rotateY(-38deg) scale(0.68);
+  z-index: 10;
+  opacity: 0.3;
+  filter: brightness(0.6);
+}
+#radio-slide-1:checked ~ .css-radio-track .radio-card-4 {
+  transform: translate3d(190%, 0, -450px) rotateY(-45deg) scale(0.5);
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Slide 2 active */
+#radio-slide-2:checked ~ .css-radio-track .radio-card-0 {
+  transform: translate3d(-145%, 0, -320px) rotateY(38deg) scale(0.68);
+  z-index: 10;
+  opacity: 0.3;
+}
+#radio-slide-2:checked ~ .css-radio-track .radio-card-1 {
+  transform: translate3d(-78%, 0, -160px) rotateY(28deg) scale(0.85);
+  z-index: 20;
+  opacity: 0.65;
+}
+#radio-slide-2:checked ~ .css-radio-track .radio-card-2 {
+  transform: translate3d(0, 0, 90px) scale(1.06);
+  z-index: 40;
+  opacity: 1;
+  filter: drop-shadow(0 20px 30px rgba(197, 160, 89, 0.25));
+}
+#radio-slide-2:checked ~ .css-radio-track .radio-card-3 {
+  transform: translate3d(78%, 0, -160px) rotateY(-28deg) scale(0.85);
+  z-index: 20;
+  opacity: 0.65;
+}
+#radio-slide-2:checked ~ .css-radio-track .radio-card-4 {
+  transform: translate3d(145%, 0, -320px) rotateY(-38deg) scale(0.68);
+  z-index: 10;
+  opacity: 0.3;
+}
+
+/* Slide 3 active */
+#radio-slide-3:checked ~ .css-radio-track .radio-card-1 {
+  transform: translate3d(-145%, 0, -320px) rotateY(38deg) scale(0.68);
+  z-index: 10;
+  opacity: 0.3;
+}
+#radio-slide-3:checked ~ .css-radio-track .radio-card-2 {
+  transform: translate3d(-78%, 0, -160px) rotateY(28deg) scale(0.85);
+  z-index: 20;
+  opacity: 0.65;
+}
+#radio-slide-3:checked ~ .css-radio-track .radio-card-3 {
+  transform: translate3d(0, 0, 90px) scale(1.06);
+  z-index: 40;
+  opacity: 1;
+  filter: drop-shadow(0 20px 30px rgba(197, 160, 89, 0.25));
+}
+#radio-slide-3:checked ~ .css-radio-track .radio-card-4 {
+  transform: translate3d(78%, 0, -160px) rotateY(-28deg) scale(0.85);
+  z-index: 20;
+  opacity: 0.65;
+}
+
+/* Slide 4 active */
+#radio-slide-4:checked ~ .css-radio-track .radio-card-2 {
+  transform: translate3d(-145%, 0, -320px) rotateY(38deg) scale(0.68);
+  z-index: 10;
+  opacity: 0.3;
+}
+#radio-slide-4:checked ~ .css-radio-track .radio-card-3 {
+  transform: translate3d(-78%, 0, -160px) rotateY(28deg) scale(0.85);
+  z-index: 20;
+  opacity: 0.65;
+}
+#radio-slide-4:checked ~ .css-radio-track .radio-card-4 {
+  transform: translate3d(0, 0, 90px) scale(1.06);
+  z-index: 40;
+  opacity: 1;
+  filter: drop-shadow(0 20px 30px rgba(197, 160, 89, 0.25));
+}
+
+/* Radio Nav Indicator Highlights */
+#radio-slide-0:checked ~ .css-radio-controls label[for="radio-slide-0"],
+#radio-slide-1:checked ~ .css-radio-controls label[for="radio-slide-1"],
+#radio-slide-2:checked ~ .css-radio-controls label[for="radio-slide-2"],
+#radio-slide-3:checked ~ .css-radio-controls label[for="radio-slide-3"],
+#radio-slide-4:checked ~ .css-radio-controls label[for="radio-slide-4"] {
+  background-color: var(--gold-accent);
+  color: #000;
+  width: 2.5rem;
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.6);
+}
+
+/* ----------------------------------------------------
+   Keyframe Animations
+   ---------------------------------------------------- */
+@keyframes kenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.08) translate(-1%, -1%);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+.animate-ken-burns {
+  animation: kenBurns 24s ease-in-out infinite alternate;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0.8deg);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(197, 160, 89, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s infinite;
+}
+
+@keyframes textShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #c5a059 0%, #ffffff 35%, #e2c07a 70%, #c5a059 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: textShimmer 6s linear infinite;
+}
+
+/* Glassmorphism */
+.glass-panel {
+  background: rgba(18, 18, 18, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-dark {
+  background: rgba(8, 8, 8, 0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* CSS Scroll Snap Container */
+.snap-carousel {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-card {
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}

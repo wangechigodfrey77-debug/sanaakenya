@@ -1,0 +1,6 @@
+{
+  "name": "Sanaa Kenya - Handcrafted Kenyan Art",
+  "description": "A carousel-driven marketplace for handcrafted Kenyan art, featuring Kisii soapstone, Maasai beadwork, Ebony sculptures, Kiondo baskets, and Kitengela recycled glass.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
