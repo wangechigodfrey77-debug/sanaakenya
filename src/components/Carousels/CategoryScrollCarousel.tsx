@@ -103,7 +103,7 @@ export const CategoryScrollCarousel: React.FC<CategoryScrollCarouselProps> = ({
           ))}
         </div>
 
-        {/* CSS Scroll Snap Product Track */}
+        {/* Product Track */}
         {filteredArtworks.length === 0 ? (
           <div className="text-center py-16 bg-[#121212] rounded-3xl border border-dashed border-white/10 p-8">
             <p className="text-lg font-bold text-white">No handcrafted pieces match your criteria</p>

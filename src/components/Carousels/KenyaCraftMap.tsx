@@ -61,7 +61,7 @@ export const KenyaCraftMap: React.FC = () => {
             ))}
           </div>
 
-          {/* Active Region Full Card Display with CSS Transitions */}
+          {/* Active Region Full Card Display */}
           <div className="lg:col-span-7 bg-stone-900 rounded-3xl overflow-hidden border border-stone-800 shadow-2xl relative min-h-[420px] flex flex-col justify-between">
             <div className="relative h-64 sm:h-72 overflow-hidden bg-stone-950">
               <img

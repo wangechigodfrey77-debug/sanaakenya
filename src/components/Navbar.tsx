@@ -50,7 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Carousel Mode Selector Tabs (CSS Transition Powered) */}
+          {/* Carousel Mode Selector Tabs */}
           <nav className="hidden lg:flex items-center gap-1 bg-[#121212] p-1.5 rounded-2xl border border-white/10 shadow-inner">
             <button
               id="nav-mode-3d"
@@ -134,15 +134,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Right Action Bar */}
           <div className="flex items-center gap-2 sm:gap-3">
             
-            {/* CSS Engine Inspector Button */}
+            {/* Display Controls Button */}
             <button
               id="open-css-engine-btn"
               onClick={onOpenCSSEngine}
-              title="Inspect Pure CSS Carousel Engine"
+              title="Inspect Display Controls"
               className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#121212] hover:bg-[#1a1a1a] text-[#c5a059] text-xs font-semibold border border-white/10 transition-all hover:scale-105"
             >
               <SlidersHorizontal className="w-3.5 h-3.5 text-[#c5a059]" />
-              <span>CSS Playground</span>
+              <span>Controls</span>
             </button>
 
             {/* Currency Switcher */}

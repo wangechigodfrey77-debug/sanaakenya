@@ -37,7 +37,7 @@ export const ThreeDShowcaseCarousel: React.FC<ThreeDShowcaseCarouselProps> = ({
     setActiveIndex((prev) => (prev - 1 + total) % total);
   }, [total]);
 
-  // Auto-play timer (uses smooth CSS transitions between slides)
+  // Auto-play timer
   useEffect(() => {
     if (!isPlaying || isPureCSSRadioMode) return;
     const interval = setInterval(() => {
@@ -83,20 +83,20 @@ export const ThreeDShowcaseCarousel: React.FC<ThreeDShowcaseCarouselProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#c5a059]/10 text-[#c5a059] border border-[#c5a059]/20 text-xs font-bold uppercase tracking-widest mb-2">
               <Sparkles className="w-3.5 h-3.5 text-[#c5a059]" />
-              <span>CSS 3D Coverflow Engine</span>
+              <span>3D Coverflow Engine</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white tracking-wide">
               Kenyan <span className="text-[#c5a059]">Masterpiece</span> Showcase
             </h2>
             <p className="text-white/60 text-sm sm:text-base mt-1 max-w-xl font-light">
-              Immerse in handcrafted Kenyan fine art with hardware-accelerated 3D CSS perspective transitions.
+              Immerse in handcrafted Kenyan fine art with 3D perspective transitions.
             </p>
           </div>
 
           {/* Engine Controls Bar */}
           <div className="flex items-center gap-3 self-start md:self-auto">
             
-            {/* Pure CSS Radio Toggle */}
+            {/* Pure Radio Toggle */}
             <button
               onClick={() => setIsPureCSSRadioMode(!isPureCSSRadioMode)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all ${
@@ -106,7 +106,7 @@ export const ThreeDShowcaseCarousel: React.FC<ThreeDShowcaseCarouselProps> = ({
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>Pure CSS Radio Engine: {isPureCSSRadioMode ? 'ON' : 'OFF'}</span>
+              <span>Pure Radio Engine: {isPureCSSRadioMode ? 'ON' : 'OFF'}</span>
             </button>
 
             {/* Auto Play Toggle */}
@@ -123,11 +123,11 @@ export const ThreeDShowcaseCarousel: React.FC<ThreeDShowcaseCarouselProps> = ({
         </div>
 
         {/* ========================================================= */}
-        {/* PURE CSS RADIO CAROUSEL ENGINE MODE */}
+        {/* PURE RADIO CAROUSEL ENGINE MODE */}
         {/* ========================================================= */}
         {isPureCSSRadioMode ? (
           <div className="css-radio-engine relative w-full py-8">
-            {/* Radio inputs for CSS selector triggering */}
+            {/* Radio inputs for selector triggering */}
             {artworks.slice(0, 5).map((_, idx) => (
               <input
                 key={`radio-${idx}`}
@@ -197,7 +197,7 @@ export const ThreeDShowcaseCarousel: React.FC<ThreeDShowcaseCarouselProps> = ({
               ))}
             </div>
 
-            {/* Pure CSS Radio Control Buttons */}
+            {/* Pure Radio Control Buttons */}
             <div className="css-radio-controls flex items-center justify-center gap-2.5 mt-8">
               {artworks.slice(0, 5).map((art, idx) => (
                 <label
@@ -213,9 +213,7 @@ export const ThreeDShowcaseCarousel: React.FC<ThreeDShowcaseCarouselProps> = ({
 
         ) : (
 
-          /* ========================================================= */
-          /* JAVASCRIPT-DRIVEN CSS TRANSITION 3D PERSPECTIVE CAROUSEL */
-          /* ========================================================= */
+          /* 3D PERSPECTIVE CAROUSEL */
           <div
             className="relative min-h-[500px] sm:min-h-[550px] md:min-h-[580px] flex items-center justify-center py-6"
             onTouchStart={handleTouchStart}
@@ -232,7 +230,7 @@ export const ThreeDShowcaseCarousel: React.FC<ThreeDShowcaseCarouselProps> = ({
                 const absOffset = Math.abs(offset);
                 const isActive = offset === 0;
 
-                // CSS 3D Transforms calculated with smooth CSS transition curves
+                // 3D Transforms calculated with smooth transition curves
                 let transformStyle: React.CSSProperties = {};
                 
                 if (isActive) {

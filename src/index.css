@@ -61,7 +61,7 @@
   will-change: transform, opacity;
 }
 
-/* CSS Parallax Hover Effects */
+/* Parallax Hover Effects */
 .css-parallax-hover {
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
 }
@@ -79,7 +79,7 @@
 }
 
 /* ----------------------------------------------------
-   Pure CSS Radio-Button Carousel Engine
+   Pure Radio-Button Carousel Engine
    ---------------------------------------------------- */
 .css-radio-engine input[type="radio"] {
   position: absolute;
@@ -87,7 +87,7 @@
   pointer-events: none;
 }
 
-/* Radio active states mapped using sibling CSS selectors */
+/* Radio active states mapped using sibling selectors */
 #radio-slide-0:checked ~ .css-radio-track .radio-card-0 {
   transform: translate3d(0, 0, 90px) scale(1.06);
   z-index: 40;
@@ -308,7 +308,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* CSS Scroll Snap Container */
+/* Scroll Snap Container */
 .snap-carousel {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;

@@ -84,13 +84,13 @@ export const HeroFilmstripCarousel: React.FC<HeroFilmstripCarouselProps> = ({
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#c5a059]/10 text-[#c5a059] border border-[#c5a059]/20 text-xs font-bold uppercase tracking-widest mb-2">
             <Sparkles className="w-3.5 h-3.5 text-[#c5a059]" />
-            <span>Horizontal CSS Snap Filmstrip</span>
+            <span>Horizontal Snap Filmstrip</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold tracking-wide">
             The <span className="text-[#c5a059]">Cultural Narrative</span> Gallery
           </h2>
           <p className="text-white/60 text-sm mt-1 max-w-xl font-light">
-            Slide horizontally through Kenya’s rich artistic heritage. Powered by CSS scroll snap & Ken Burns motion effects.
+            Slide horizontally through Kenya’s rich artistic heritage.
           </p>
         </div>
 
@@ -117,7 +117,7 @@ export const HeroFilmstripCarousel: React.FC<HeroFilmstripCarouselProps> = ({
           >
             <div className="grid grid-cols-1 md:grid-cols-12 h-full">
               
-              {/* Photo Box with CSS Ken Burns animation */}
+              {/* Photo Box */}
               <div className="md:col-span-7 relative h-72 sm:h-80 md:h-[480px] overflow-hidden bg-[#080808]">
                 <img
                   src={art.image}

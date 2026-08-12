@@ -105,14 +105,9 @@ export default function App() {
           <span>100% Authentic Kenyan Craftsmanship</span>
         </span>
         <span className="hidden sm:inline text-white/20">•</span>
-        <span className="hidden sm:inline flex items-center gap-1">
+        <span className="flex items-center gap-1">
           <Truck className="w-3.5 h-3.5 text-[#c5a059]" />
           <span>Worldwide Express Air Freight & Certificate of Authenticity</span>
-        </span>
-        <span className="hidden md:inline text-white/20">•</span>
-        <span className="hidden md:inline flex items-center gap-1 text-[#c5a059] font-bold">
-          <Layers className="w-3.5 h-3.5" />
-          <span>Heavily CSS-Driven Smooth Transitions</span>
         </span>
       </div>
 
@@ -316,22 +311,22 @@ export default function App() {
 
             <div>
               <h4 className="font-serif font-bold text-xs uppercase tracking-[0.2em] text-[#c5a059] mb-3">
-                CSS Transition Engine
+                M-PESA & Regional Express
               </h4>
               <p className="text-xs text-white/50 leading-relaxed mb-3">
-                Built with hardware-accelerated 3D transforms (<code className="text-[#c5a059]">rotateY</code>, <code className="text-[#c5a059]">translate3d</code>) and pure CSS radio state selectors.
+                Fast regional shipping across Kenya (Nairobi 200 KSh, Central 300 KSh, Western 500 KSh, Coast 600 KSh, Other 500 KSh) with instant Safaricom M-PESA payment.
               </p>
               <button
                 onClick={() => setIsCSSEngineOpen(true)}
                 className="px-3.5 py-2 rounded-lg bg-[#121212] hover:bg-[#1a1a1a] text-[#c5a059] text-xs font-bold border border-white/10 transition-all uppercase tracking-widest"
               >
-                Inspect CSS Controls
+                Inspect Display Controls
               </button>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/30 tracking-wider">
-            <p>© 2026 Sanaa Kenya. Crafted in Kenya & Powered by Pure CSS Transitions.</p>
+            <p>© 2026 Sanaa Kenya. Handcrafted in Kenya with pride.</p>
             <div className="flex items-center gap-3">
               <span>🇰🇪 Made in Kenya</span>
               <span>•</span>

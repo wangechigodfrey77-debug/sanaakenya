@@ -25,7 +25,7 @@ export const CSSControlsToggle: React.FC<CSSControlsToggleProps> = ({
       <div className="flex items-center justify-between pb-3 border-b border-white/10">
         <div className="flex items-center gap-2">
           <Sliders className="w-5 h-5 text-[#c5a059]" />
-          <h3 className="font-serif font-bold text-sm tracking-wide">Pure CSS Engine Inspector</h3>
+          <h3 className="font-serif font-bold text-sm tracking-wide">Display Controls Inspector</h3>
         </div>
         <button onClick={onClose} className="p-1 text-white/40 hover:text-white">
           <X className="w-4 h-4" />
@@ -33,14 +33,13 @@ export const CSSControlsToggle: React.FC<CSSControlsToggleProps> = ({
       </div>
 
       <div className="py-4 space-y-4 text-xs">
-        {/* CSS Engine Mode */}
         <div className="flex items-center justify-between p-3 rounded-2xl bg-[#1a1a1a] border border-white/10">
           <div>
             <span className="font-bold text-white flex items-center gap-1.5">
               <Layers className="w-3.5 h-3.5 text-[#c5a059]" />
-              Pure CSS Radio Selectors
+              Pure Radio Selectors
             </span>
-            <p className="text-[10px] text-white/50">Uses pure CSS :checked sibling rules without JS event loops</p>
+            <p className="text-[10px] text-white/50">Uses pure radio state sibling rules without JS event loops</p>
           </div>
           <button
             onClick={() => setIsPureCSSRadioMode(!isPureCSSRadioMode)}
@@ -52,12 +51,11 @@ export const CSSControlsToggle: React.FC<CSSControlsToggleProps> = ({
           </button>
         </div>
 
-        {/* Transition Duration Slider */}
         <div className="space-y-1.5 p-3 rounded-2xl bg-[#1a1a1a] border border-white/10">
           <div className="flex justify-between">
             <span className="font-bold text-white/80 flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5 text-[#c5a059]" />
-              CSS Transition Speed
+              Transition Speed
             </span>
             <span className="font-mono text-[#c5a059] font-bold">{transitionSpeedSec}s</span>
           </div>
@@ -70,7 +68,7 @@ export const CSSControlsToggle: React.FC<CSSControlsToggleProps> = ({
             onChange={(e) => setTransitionSpeedSec(Number(e.target.value))}
             className="w-full accent-[#c5a059] cursor-pointer"
           />
-          <p className="text-[10px] text-white/40">Controls CSS cubic-bezier easing curve acceleration</p>
+          <p className="text-[10px] text-white/40">Controls cubic-bezier easing curve acceleration</p>
         </div>
 
         {/* Hardware Specs Badge */}
