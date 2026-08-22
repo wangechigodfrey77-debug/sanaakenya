@@ -6,6 +6,14 @@ import maasaiImg from '../assets/images/maasai_beadwork_1786552154808.jpg';
 import ebonyImg from '../assets/images/ebony_woodcarving_1786552168531.jpg';
 import kiondoImg from '../assets/images/kiondo_basket_1786552180434.jpg';
 import glassImg from '../assets/images/kitengela_glass_1786552195163.jpg';
+import maasaiArtisanAvatar from '../assets/images/kenyan_maasai_artisan_1787379476084.jpg';
+import woodcarverAvatar from '../assets/images/kenyan_woodcarver_master_1787379491936.jpg';
+import soapstoneAvatar from '../assets/images/kenyan_soapstone_sculptor_1787379506795.jpg';
+import sisalWeaverAvatar from '../assets/images/kenyan_sisal_weaver_1787379521985.jpg';
+import swahiliArtistAvatar from '../assets/images/kenyan_swahili_artist_1787379537998.jpg';
+import glassArtisanAvatar from '../assets/images/kenyan_glass_artisan_1787379554085.jpg';
+import batikArtworkImg from '../assets/images/kenyan_batik_painting_1787379569328.jpg';
+import beadCraftImg from '../assets/images/kenyan_bead_craft_1787379584867.jpg';
 
 export const ARTISANS: Record<string, Artisan> = {
   tabaka: {
@@ -14,7 +22,7 @@ export const ARTISANS: Record<string, Artisan> = {
     location: 'Tabaka Quarries, Kisii County',
     coopName: 'Kisii Soapstone Artisans Co-operative',
     bio: 'Pioneering soapstone sculpting in Tabaka for 32 years. Agnes leads 45 women sculptors who hand-quarry, carve, and polish natural pink and cream Kisii talc stone.',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+    avatar: soapstoneAvatar,
     craftType: 'Soapstone Carving & Polishing',
     experienceYears: 32,
   },
@@ -24,7 +32,7 @@ export const ARTISANS: Record<string, Artisan> = {
     location: 'Amboseli Foothills, Kajiado',
     coopName: 'Oloitokitok Maasai Women Beadwork Guild',
     bio: 'Sipatoi preserves centuries of royal Maasai ceremonial beadwork traditions. Each color in her beaded creations represents Maasai cultural values: Red for bravery, White for peace, Blue for sky.',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
+    avatar: maasaiArtisanAvatar,
     craftType: 'Maasai Ceremonial Glass Beadwork',
     experienceYears: 24,
   },
@@ -34,7 +42,7 @@ export const ARTISANS: Record<string, Artisan> = {
     location: 'Wamunyu, Machakos County',
     coopName: 'Wamunyu Woodcarvers Co-operative Society',
     bio: 'Third-generation Akamba woodcarver specializing in African Blackwood (Ebony) and wild olive wood. Mutua uses hand chisels passed down from his grandfather.',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80',
+    avatar: woodcarverAvatar,
     craftType: 'African Ebony & Olive Wood Carving',
     experienceYears: 40,
   },
@@ -44,7 +52,7 @@ export const ARTISANS: Record<string, Artisan> = {
     location: 'Voi, Taita Taveta County',
     coopName: 'Taita Taveta Sisal Basket Collective',
     bio: 'Harvesting raw Agave sisal fibers, Grace dyes thread using organic roots and bark before handweaving durable, water-resistant Kiondo totes.',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80',
+    avatar: sisalWeaverAvatar,
     craftType: 'Handwoven Sisal & Leather Kiondo Baskets',
     experienceYears: 28,
   },
@@ -54,7 +62,7 @@ export const ARTISANS: Record<string, Artisan> = {
     location: 'Kitengela, Kajiado North',
     coopName: 'Kitengela Eco-Glass Blowers',
     bio: 'Fusing environmental conservation with high fine-art glassblowing. Transforming recycled wine and beverage bottles into handblown architectural glass artwork.',
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80',
+    avatar: glassArtisanAvatar,
     craftType: 'Off-Grid Recycled Blown Glass',
     experienceYears: 35,
   },
@@ -64,7 +72,7 @@ export const ARTISANS: Record<string, Artisan> = {
     location: 'Lamu Old Town (UNESCO Site)',
     coopName: 'Swahili Coast Heritage Guild',
     bio: 'Creating hand-painted Batik textiles on organic cotton canvas and traditional Swahili wooden dhow models along the historic Indian Ocean coast.',
-    avatar: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=300&q=80',
+    avatar: swahiliArtistAvatar,
     craftType: 'Swahili Batik Painting & Dhow Art',
     experienceYears: 22,
   },
@@ -380,7 +388,11 @@ export const ARTWORKS: Artwork[] = [
     category: 'batik',
     categoryLabel: 'Swahili Canvas Batik',
     priceUSD: 180,
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    image: batikArtworkImg,
+    additionalImages: [
+      batikArtworkImg,
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    ],
     region: 'Lamu Island, Coastal Kenya',
     artisan: ARTISANS.lamu,
     description: 'A vibrant wax-resist batik canvas depicting coconut palm silhouettes against an indigo and amber coastal dawn.',
@@ -476,7 +488,7 @@ export const REGIONS_MAP = [
     craft: 'Swahili Dhows & Batik',
     lat: -2.27,
     lng: 40.90,
-    image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80',
+    image: batikArtworkImg,
     artisanCount: '400+ Coastal Artists',
     description: 'Ancient Swahili wax-resist textile painting and teak wood carved doors on UNESCO heritage island.',
   },
@@ -567,7 +579,7 @@ export const REGION_TRIBE_DATA: RegionTribeInfo[] = [
       culturalSignificance: 'Capturing the tranquil rhythms of dhow seafaring, Swahili architectural doorways, and coastal flora.',
     },
     keySymbols: ['Jahazi Dhow Sail', 'Swahili Brass Inlay Door', 'Crackle Wax Batik'],
-    image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80',
+    image: batikArtworkImg,
     artisanCount: '400+ Coastal Artists',
   },
   {

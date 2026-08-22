@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, Compass, Sparkles, MapPin, Users, Filter, SlidersHorizontal } from 'lucide-react';
+import { ShoppingBag, Compass, Sparkles, MapPin, Users, Filter, SlidersHorizontal, ShieldCheck } from 'lucide-react';
 import { CarouselMode, Currency } from '../types';
 
 interface NavbarProps {
@@ -10,6 +10,7 @@ interface NavbarProps {
   cartCount: number;
   onOpenCart: () => void;
   onOpenCSSEngine: () => void;
+  onOpenAdmin: () => void;
   selectedCategory: string;
   setSelectedCategory: (cat: any) => void;
 }
@@ -22,6 +23,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   cartCount,
   onOpenCart,
   onOpenCSSEngine,
+  onOpenAdmin,
   selectedCategory,
   setSelectedCategory,
 }) => {
@@ -134,12 +136,23 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Right Action Bar */}
           <div className="flex items-center gap-2 sm:gap-3">
             
+            {/* Admin Portal Button */}
+            <button
+              id="open-admin-portal-btn"
+              onClick={onOpenAdmin}
+              title="Open Sanaa Kenya Admin Portal"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#171717] hover:bg-[#222] text-[#00a859] text-xs font-bold border border-[#00a859]/30 shadow-sm transition-all hover:scale-105"
+            >
+              <ShieldCheck className="w-4 h-4 text-[#00a859]" />
+              <span className="hidden sm:inline">Admin Portal</span>
+            </button>
+
             {/* Display Controls Button */}
             <button
               id="open-css-engine-btn"
               onClick={onOpenCSSEngine}
               title="Inspect Display Controls"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#121212] hover:bg-[#1a1a1a] text-[#c5a059] text-xs font-semibold border border-white/10 transition-all hover:scale-105"
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#121212] hover:bg-[#1a1a1a] text-[#c5a059] text-xs font-semibold border border-white/10 transition-all hover:scale-105"
             >
               <SlidersHorizontal className="w-3.5 h-3.5 text-[#c5a059]" />
               <span>Controls</span>
@@ -182,6 +195,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Mobile Navigation Sub-Bar */}
         <div className="lg:hidden mt-3 pt-2 border-t border-white/10 flex items-center gap-1 overflow-x-auto no-scrollbar pb-1">
+          <button
+            onClick={onOpenAdmin}
+            className="whitespace-nowrap text-xs font-bold px-3 py-1 rounded-lg bg-[#00a859]/20 text-[#00a859] border border-[#00a859]/40 flex items-center gap-1"
+          >
+            <ShieldCheck className="w-3.5 h-3.5" />
+            Admin
+          </button>
           <button
             onClick={() => setMode('3d-coverflow')}
             className={`whitespace-nowrap text-xs font-medium px-3 py-1 rounded-lg transition-all ${

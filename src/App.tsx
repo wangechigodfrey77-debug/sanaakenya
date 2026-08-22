@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { ThreeDShowcaseCarousel } from './components/Carousels/ThreeDShowcaseCarousel';
 import { HeroFilmstripCarousel } from './components/Carousels/HeroFilmstripCarousel';
@@ -11,25 +11,69 @@ import { ArtDetailModal } from './components/ArtDetailModal';
 import { CartDrawer } from './components/CartDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
 import { CSSControlsToggle } from './components/CSSControlsToggle';
-import { ARTWORKS } from './data/artworks';
-import { Artwork, CarouselMode, CartItem, Currency } from './types';
+import { AdminPortal } from './components/AdminPortal';
+import { ARTWORKS, ARTISANS } from './data/artworks';
+import { Artwork, Artisan, CarouselMode, CartItem, Currency } from './types';
 import { KenyaRegionKey } from './data/deliveryRegions';
-import { Sparkles, ShieldCheck, HeartHandshake, Truck, Layers } from 'lucide-react';
+import { Sparkles, ShieldCheck, HeartHandshake, Truck, Layers, PlusCircle } from 'lucide-react';
+
+const STORAGE_KEY_ARTWORKS = 'sanaa_kenya_artworks_v1';
+const STORAGE_KEY_ARTISANS = 'sanaa_kenya_artisans_v1';
 
 export default function App() {
   const [carouselMode, setCarouselMode] = useState<CarouselMode>('3d-coverflow');
   const [currency, setCurrency] = useState<Currency>('USD');
+  
+  // Dynamic catalog state with localStorage persistence
+  const [artisans, setArtisans] = useState<Record<string, Artisan>>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_ARTISANS);
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error('Failed to load saved artisans:', e);
+    }
+    return ARTISANS;
+  });
+
+  const [artworks, setArtworks] = useState<Artwork[]>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_ARTWORKS);
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error('Failed to load saved artworks:', e);
+    }
+    return ARTWORKS;
+  });
+
   const [cart, setCart] = useState<CartItem[]>([
-    { artwork: ARTWORKS[0], quantity: 1 } // Initial item in cart
+    { artwork: artworks[0] || ARTWORKS[0], quantity: 1 } // Initial item in cart
   ]);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState<boolean>(false);
+  const [isAdminOpen, setIsAdminOpen] = useState<boolean>(false);
   const [selectedArtworkForModal, setSelectedArtworkForModal] = useState<Artwork | null>(null);
   const [isPureCSSRadioMode, setIsPureCSSRadioMode] = useState<boolean>(false);
   const [transitionSpeedSec, setTransitionSpeedSec] = useState<number>(0.65);
   const [isCSSEngineOpen, setIsCSSEngineOpen] = useState<boolean>(false);
   const [checkoutTipPercentage, setCheckoutTipPercentage] = useState<number>(10);
   const [checkoutRegionKey, setCheckoutRegionKey] = useState<KenyaRegionKey>('nairobi');
+
+  // Save to localStorage whenever modified
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY_ARTWORKS, JSON.stringify(artworks));
+    } catch (e) {
+      console.error('Failed to persist artworks:', e);
+    }
+  }, [artworks]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY_ARTISANS, JSON.stringify(artisans));
+    } catch (e) {
+      console.error('Failed to persist artisans:', e);
+    }
+  }, [artisans]);
 
   // Price formatter with live exchange rates
   const formatPrice = (priceUSD: number, cur: Currency): string => {
@@ -42,6 +86,56 @@ export default function App() {
         return `KSh ${(priceUSD * 130).toLocaleString()}`;
       default:
         return `$${priceUSD}`;
+    }
+  };
+
+  // Admin Catalog Handlers
+  const handleAddArtwork = (newArtwork: Artwork) => {
+    setArtworks((prev) => [newArtwork, ...prev]);
+  };
+
+  const handleUpdateArtwork = (updatedArtwork: Artwork) => {
+    setArtworks((prev) => prev.map((a) => (a.id === updatedArtwork.id ? updatedArtwork : a)));
+  };
+
+  const handleDeleteArtwork = (artworkId: string) => {
+    setArtworks((prev) => prev.filter((a) => a.id !== artworkId));
+    setCart((prev) => prev.filter((item) => item.artwork.id !== artworkId));
+  };
+
+  const handleToggleStock = (artworkId: string) => {
+    setArtworks((prev) =>
+      prev.map((a) => (a.id === artworkId ? { ...a, inStock: !a.inStock } : a))
+    );
+  };
+
+  const handleToggleFeatured = (artworkId: string) => {
+    setArtworks((prev) =>
+      prev.map((a) => (a.id === artworkId ? { ...a, isFeatured: !a.isFeatured } : a))
+    );
+  };
+
+  const handleAddArtisan = (newArtisan: Artisan) => {
+    setArtisans((prev) => ({
+      ...prev,
+      [newArtisan.id]: newArtisan,
+    }));
+  };
+
+  const handleDeleteArtisan = (artisanId: string) => {
+    setArtisans((prev) => {
+      const copy = { ...prev };
+      delete copy[artisanId];
+      return copy;
+    });
+  };
+
+  const handleResetToDefaults = () => {
+    if (confirm('Reset catalog and vendors to original curated Kenyan collection?')) {
+      setArtworks(ARTWORKS);
+      setArtisans(ARTISANS);
+      localStorage.removeItem(STORAGE_KEY_ARTWORKS);
+      localStorage.removeItem(STORAGE_KEY_ARTISANS);
     }
   };
 
@@ -94,6 +188,7 @@ export default function App() {
         cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
         onOpenCart={() => setIsCartOpen(true)}
         onOpenCSSEngine={() => setIsCSSEngineOpen(true)}
+        onOpenAdmin={() => setIsAdminOpen(true)}
         selectedCategory="all"
         setSelectedCategory={() => {}}
       />
@@ -109,6 +204,14 @@ export default function App() {
           <Truck className="w-3.5 h-3.5 text-[#c5a059]" />
           <span>Worldwide Express Air Freight & Certificate of Authenticity</span>
         </span>
+        <span className="hidden md:inline text-white/20">•</span>
+        <button
+          onClick={() => setIsAdminOpen(true)}
+          className="text-[#00a859] hover:underline flex items-center gap-1 font-bold ml-1"
+        >
+          <ShieldCheck className="w-3.5 h-3.5" />
+          <span>Admin Portal</span>
+        </button>
       </div>
 
       {/* Main Content Area based on Carousel Mode */}
@@ -118,7 +221,7 @@ export default function App() {
         {carouselMode === '3d-coverflow' && (
           <>
             <ThreeDShowcaseCarousel
-              artworks={ARTWORKS}
+              artworks={artworks}
               currency={currency}
               formatPrice={formatPrice}
               onInspect={(art) => setSelectedArtworkForModal(art)}
@@ -128,7 +231,7 @@ export default function App() {
               transitionSpeedSec={transitionSpeedSec}
             />
             <CategoryScrollCarousel
-              artworks={ARTWORKS}
+              artworks={artworks}
               currency={currency}
               formatPrice={formatPrice}
               onInspect={(art) => setSelectedArtworkForModal(art)}
@@ -141,7 +244,7 @@ export default function App() {
         {carouselMode === 'hero-filmstrip' && (
           <>
             <HeroFilmstripCarousel
-              artworks={ARTWORKS}
+              artworks={artworks}
               currency={currency}
               formatPrice={formatPrice}
               onInspect={(art) => setSelectedArtworkForModal(art)}
@@ -155,14 +258,14 @@ export default function App() {
         {carouselMode === 'category-snap' && (
           <>
             <CategoryScrollCarousel
-              artworks={ARTWORKS}
+              artworks={artworks}
               currency={currency}
               formatPrice={formatPrice}
               onInspect={(art) => setSelectedArtworkForModal(art)}
               onAddToCart={handleAddToCart}
             />
             <ThreeDShowcaseCarousel
-              artworks={ARTWORKS}
+              artworks={artworks}
               currency={currency}
               formatPrice={formatPrice}
               onInspect={(art) => setSelectedArtworkForModal(art)}
@@ -178,14 +281,14 @@ export default function App() {
         {carouselMode === 'shop-by-region' && (
           <>
             <ShopByRegionTribe
-              artworks={ARTWORKS}
+              artworks={artworks}
               currency={currency}
               formatPrice={formatPrice}
               onInspect={(art) => setSelectedArtworkForModal(art)}
               onAddToCart={handleAddToCart}
             />
             <FeaturedArtisanSection
-              artworks={ARTWORKS}
+              artworks={artworks}
               currency={currency}
               formatPrice={formatPrice}
               onInspect={(art) => setSelectedArtworkForModal(art)}
@@ -198,14 +301,14 @@ export default function App() {
         {carouselMode === 'artisan-stories' && (
           <>
             <FeaturedArtisanSection
-              artworks={ARTWORKS}
+              artworks={artworks}
               currency={currency}
               formatPrice={formatPrice}
               onInspect={(art) => setSelectedArtworkForModal(art)}
               onAddToCart={handleAddToCart}
             />
             <ShopByRegionTribe
-              artworks={ARTWORKS}
+              artworks={artworks}
               currency={currency}
               formatPrice={formatPrice}
               onInspect={(art) => setSelectedArtworkForModal(art)}
@@ -219,7 +322,7 @@ export default function App() {
           <>
             <KenyaCraftMap />
             <ShopByRegionTribe
-              artworks={ARTWORKS}
+              artworks={artworks}
               currency={currency}
               formatPrice={formatPrice}
               onInspect={(art) => setSelectedArtworkForModal(art)}
@@ -231,7 +334,7 @@ export default function App() {
         {/* Universal Section: Shop By Region & Tribe */}
         {carouselMode !== 'shop-by-region' && (
           <ShopByRegionTribe
-            artworks={ARTWORKS}
+            artworks={artworks}
             currency={currency}
             formatPrice={formatPrice}
             onInspect={(art) => setSelectedArtworkForModal(art)}
@@ -242,7 +345,7 @@ export default function App() {
         {/* Universal Section: Featured Master Artisan */}
         {carouselMode !== 'artisan-stories' && (
           <FeaturedArtisanSection
-            artworks={ARTWORKS}
+            artworks={artworks}
             currency={currency}
             formatPrice={formatPrice}
             onInspect={(art) => setSelectedArtworkForModal(art)}
@@ -311,17 +414,26 @@ export default function App() {
 
             <div>
               <h4 className="font-serif font-bold text-xs uppercase tracking-[0.2em] text-[#c5a059] mb-3">
-                M-PESA & Regional Express
+                Merchant Admin & Logistics
               </h4>
               <p className="text-xs text-white/50 leading-relaxed mb-3">
-                Fast regional shipping across Kenya (Nairobi 200 KSh, Central 300 KSh, Western 500 KSh, Coast 600 KSh, Other 500 KSh) with instant Safaricom M-PESA payment.
+                Manage Kenyan artisan guilds, register new craft products, track inventory, and configure regional delivery fees.
               </p>
-              <button
-                onClick={() => setIsCSSEngineOpen(true)}
-                className="px-3.5 py-2 rounded-lg bg-[#121212] hover:bg-[#1a1a1a] text-[#c5a059] text-xs font-bold border border-white/10 transition-all uppercase tracking-widest"
-              >
-                Inspect Display Controls
-              </button>
+              <div className="flex items-center gap-2 flex-wrap">
+                <button
+                  onClick={() => setIsAdminOpen(true)}
+                  className="px-3.5 py-2 rounded-lg bg-[#00a859] hover:bg-[#00924c] text-white text-xs font-bold transition-all uppercase tracking-wider flex items-center gap-1.5 shadow-lg shadow-[#00a859]/20"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  Admin Portal
+                </button>
+                <button
+                  onClick={() => setIsCSSEngineOpen(true)}
+                  className="px-3 py-2 rounded-lg bg-[#121212] hover:bg-[#1a1a1a] text-[#c5a059] text-xs font-bold border border-white/10 transition-all uppercase tracking-wider"
+                >
+                  Controls
+                </button>
+              </div>
             </div>
           </div>
 
@@ -331,6 +443,10 @@ export default function App() {
               <span>🇰🇪 Made in Kenya</span>
               <span>•</span>
               <span>Fair Trade Certified</span>
+              <span>•</span>
+              <button onClick={() => setIsAdminOpen(true)} className="hover:text-[#00a859] transition-colors">
+                Vendor Management Portal
+              </button>
             </div>
           </div>
 
@@ -338,6 +454,23 @@ export default function App() {
       </footer>
 
       {/* Modals & Drawers */}
+      <AdminPortal
+        isOpen={isAdminOpen}
+        onClose={() => setIsAdminOpen(false)}
+        artworks={artworks}
+        artisans={artisans}
+        onAddArtwork={handleAddArtwork}
+        onUpdateArtwork={handleUpdateArtwork}
+        onDeleteArtwork={handleDeleteArtwork}
+        onToggleStock={handleToggleStock}
+        onToggleFeatured={handleToggleFeatured}
+        onAddArtisan={handleAddArtisan}
+        onDeleteArtisan={handleDeleteArtisan}
+        currency={currency}
+        formatPrice={formatPrice}
+        onResetToDefaults={handleResetToDefaults}
+      />
+
       <ArtDetailModal
         artwork={selectedArtworkForModal}
         onClose={() => setSelectedArtworkForModal(null)}
@@ -380,3 +513,4 @@ export default function App() {
     </div>
   );
 }
+
